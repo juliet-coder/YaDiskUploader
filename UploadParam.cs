@@ -6,9 +6,13 @@ namespace ConsoleApp
 {
     class UploadParam
     {
-        public string operation_id;
-        public string href;
-        public string method;
-        public string templated;
+        public UploadParam(string userDir, string yaDiskDir)
+        {
+            UserDir = userDir;
+            YaDiskDir = yaDiskDir;
+        }
+        public string UserDir { get; set; }
+        public string YaDiskDir { get; set; }
+
     }
 }

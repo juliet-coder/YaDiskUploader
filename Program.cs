@@ -1,62 +1,77 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Threading.Tasks;
 using YandexDisk.Client;
+using YandexDisk.Client.Http;
+using YandexDisk.Client.Protocol;
 
-namespace ConsoleApp       
+namespace ConsoleApp
 {
-    class Program
+    class Program        //  C:\Test
     {
-        IDiskApi diskApi;
-        Upload uploadOptions = new Upload();
-        private const string token = "";
+        
+        private static string token = "";
 
-        public static void Main(string[] args)
-        {
-           
-            var token = ConfigurationManager.AppSettings["oauthToken"];
-            var sourceDir = GetUserLocalFolder(@"Введите адрес локальной директории, например - C:\user\folder\");  //  C:\Test
-            var targetDir = GetYandexDiskDirectory(@"Введите адрес папки на Яндекс Диске (при загрузке в корневой каталог - Enter)");
-
-           
-
-           
-        }
-
-        public static void UploadToDisk(string userDir, string targetDir)
+        public static async Task Main(string[] args)
         {
             try
             {
-                
+                token = ConfigurationManager.AppSettings["oauthToken"];
+                var userDir = GetUserLocalFolder(@"Введите адрес локальной директории, например - C:\user\folder\");  //  C:\Test
+               var yaDiskDir = GetYandexDiskDirectory(@"Введите адрес папки на Яндекс Диске (при загрузке в корневой каталог - Enter)");
+                IDiskApi diskApi = new DiskHttpApi(token);
+
                 string[] files = Directory.GetFiles(userDir, "*.*", SearchOption.AllDirectories);
 
-
-                int i = 0;
                 foreach (var file in files)
                 {
-                    
-                    uploadOptions.UploadAsync(files[i], file, diskApi, targetDir);
+                    await GetStartAsync(yaDiskDir, diskApi, file);
                 }
             }
-            catch (Exception ex)
+
+
+            catch (Exception e)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(e.Message);
             }
         }
-        private static string GetUserLocalFolder(string inputInternal)
+        
+        public static async Task GetStartAsync(string yaDiskDir, IDiskApi diskApi, string file)
         {
-            Console.Write(inputInternal);
-            return Console.ReadLine();
+            
+               
+            Link url = await diskApi.Files.GetUploadLinkAsync(yaDiskDir + "/" + file.Substring(0, file.LastIndexOf("")), true)
+            .ConfigureAwait(false);
+
+            Console.WriteLine(file, "Идет загрузка");
+
+            using (FileStream fs = File.OpenRead(file))
+            {
+                
+                await diskApi.Files.UploadAsync(url, fs);
+            }
+
+            Console.WriteLine(file, "Загружен");
         }
 
-        public static string GetYandexDiskDirectory(string InputExternal)
-        {
-            Console.Write(InputExternal);
-            return Console.ReadLine();
-        }
+        private static string GetUserLocalFolder(string inputInternal)
+                {
+                    Console.Write(inputInternal);
+                    return Console.ReadLine();
+                }
+
+                public static string GetYandexDiskDirectory(string InputExternal)
+                {
+                    Console.Write(InputExternal);
+                    return Console.ReadLine();
+                }
+           
         
     }
 }
+
 
 
 

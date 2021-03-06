@@ -22,7 +22,6 @@ C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\runtimes
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\obj\Debug\netcoreapp3.1\ConsoleApp.csprojAssemblyReference.cache
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\obj\Debug\netcoreapp3.1\ConsoleApp.AssemblyInfoInputs.cache
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\obj\Debug\netcoreapp3.1\ConsoleApp.AssemblyInfo.cs
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\obj\Debug\netcoreapp3.1\ConsoleApp.csproj.CoreCompileInputs.cache
@@ -35,3 +34,6 @@ C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\System.N
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\YandexDisk.Client.dll
 C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\YandexDisk.Client.CLI.dll
+C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\obj\Debug\netcoreapp3.1\ConsoleApp.csprojAssemblyReference.cache
+C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\System.Net.Http.Json.dll
+C:\Users\Dom\source\repos\ConsoleApp\ConsoleApp\bin\Debug\netcoreapp3.1\System.Text.Json.dll
