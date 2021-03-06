@@ -42,10 +42,10 @@ namespace ConsoleApp
         {
             
                
-            Link url = await diskApi.Files.GetUploadLinkAsync(yaDiskDir + "/" + file.Substring(0, file.LastIndexOf("")), true)
+            Link url = await diskApi.Files.GetUploadLinkAsync(yaDiskDir + "/" + file, true)
             .ConfigureAwait(false);
 
-            Console.WriteLine(file, "Идет загрузка");
+            Console.WriteLine(file, "Загрузка");
 
             using (FileStream fs = File.OpenRead(file))
             {
@@ -67,8 +67,17 @@ namespace ConsoleApp
                     Console.Write(InputExternal);
                     return Console.ReadLine();
                 }
-           
-        
+
+        private static void GetUserInput(out UploadParam uploadParam)
+        {
+            Console.WriteLine(@"Введите адрес локальной директории, например - C:\user\folder\");
+            string userDir = Console.ReadLine();
+
+            Console.WriteLine("Введите адрес папки на Яндекс Диске (при загрузке в корневой каталог - Enter)");
+            string yaDiskDir = Console.ReadLine();
+
+            uploadParam = new UploadParam(userDir, yaDiskDir);
+        }
     }
 }
 

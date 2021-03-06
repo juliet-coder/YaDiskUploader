@@ -6,11 +6,14 @@ namespace ConsoleApp
 {
     class FolderParam
     {
-        public FolderParam(string localPath)
+        public FolderParam(string nameWithExt, string localPath)
         {
+            NameWithExt = nameWithExt;
             LocalPath = localPath;
 
         }
+        public string NameWithExt { get; set; }
         public string LocalPath { get; set; }
+        
     }
 }
