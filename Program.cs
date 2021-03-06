@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using YandexDisk.Client;
 using YandexDisk.Client.Http;
@@ -9,9 +9,9 @@ using YandexDisk.Client.Protocol;
 
 namespace ConsoleApp
 {
-    class Program        //  C:\Test
-    {
-        
+    class Program        //  C:\Users\Dom\Documents\Test
+    {                     // client/albums
+
         private static string token = "";
 
         public static async Task Main(string[] args)
@@ -19,16 +19,22 @@ namespace ConsoleApp
             try
             {
                 token = ConfigurationManager.AppSettings["oauthToken"];
-                var userDir = GetUserLocalFolder(@"Введите адрес локальной директории, например - C:\user\folder\");  //  C:\Test
-               var yaDiskDir = GetYandexDiskDirectory(@"Введите адрес папки на Яндекс Диске (при загрузке в корневой каталог - Enter)");
+              var userDir = GetUserLocalFolder(@"Введите адрес локальной директории, например - C:\user\folder\");   
+                var yaDiskDir = GetYandexDiskDirectory(@"Введите адрес папки на Яндекс Диске (при загрузке в корневой каталог - Enter)");
                 IDiskApi diskApi = new DiskHttpApi(token);
 
-                string[] files = Directory.GetFiles(userDir, "*.*", SearchOption.AllDirectories);
+                var files = userDir.Length;
+                
+                if (!userDir.EndsWith("" + Path.DirectorySeparatorChar)) files++;
 
-                foreach (var file in files)
+                var filesPath = Directory
+                                .EnumerateFiles(userDir, "*", SearchOption.AllDirectories)
+                                .Select(f => f.Substring(files));
+                foreach (var file in filesPath)
                 {
                     await GetStartAsync(yaDiskDir, diskApi, file);
                 }
+
             }
 
 
@@ -39,9 +45,7 @@ namespace ConsoleApp
         }
         
         public static async Task GetStartAsync(string yaDiskDir, IDiskApi diskApi, string file)
-        {
-            
-               
+        {           
             Link url = await diskApi.Files.GetUploadLinkAsync(yaDiskDir + "/" + file, true)
             .ConfigureAwait(false);
 
@@ -68,7 +72,7 @@ namespace ConsoleApp
                     return Console.ReadLine();
                 }
 
-        private static void GetUserInput(out UploadParam uploadParam)
+       /* private static void GetUserInput(out UploadParam uploadParam)
         {
             Console.WriteLine(@"Введите адрес локальной директории, например - C:\user\folder\");
             string userDir = Console.ReadLine();
@@ -77,7 +81,7 @@ namespace ConsoleApp
             string yaDiskDir = Console.ReadLine();
 
             uploadParam = new UploadParam(userDir, yaDiskDir);
-        }
+        } */
     }
 }
 
